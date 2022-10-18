@@ -1,0 +1,42 @@
+{
+  "name": "petsfood",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "~1.17.3",
+    "@react-native-community/datetimepicker": "6.2.0",
+    "@react-native-community/geolocation": "^3.0.2",
+    "@react-native-picker/picker": "2.4.2",
+    "@react-navigation/bottom-tabs": "^6.4.0",
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/stack": "^6.3.2",
+    "expo": "~46.0.13",
+    "expo-location": "~14.3.0",
+    "expo-splash-screen": "~0.16.2",
+    "expo-status-bar": "~1.4.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.6",
+    "react-native-date-picker": "^4.2.5",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-permissions": "^3.6.1",
+    "react-native-safe-area-context": "4.3.1",
+    "react-native-screens": "~3.15.0",
+    "react-native-svg": "12.3.0",
+    "react-native-svg-transformer": "^1.0.0",
+    "react-native-swiper": "^1.6.0",
+    "react-native-web": "~0.18.7",
+    "sequelize": "^6.25.2",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "private": true
+}
