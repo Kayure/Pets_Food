@@ -21,5 +21,6 @@ export default () => (
         <Tab.Screen name="Favorites" component={Favorites} />
         <Tab.Screen name="Food" component={Food} />
         <Tab.Screen name="Profile" component={Profile} />
+        
     </Tab.Navigator>
 );

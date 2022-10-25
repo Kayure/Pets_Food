@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useContext} from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-
-import {LoadingIcon, Container} from './styles';
+import { Container, InputArea, CustomButton, CustomButtonText,SignMessageButton, SignMessageButtonText, SignMessageButtonTextBold } from './styles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from '@react-navigation/native';
+
 
 import {UserContext} from '../../contexts/UserContext'
 
