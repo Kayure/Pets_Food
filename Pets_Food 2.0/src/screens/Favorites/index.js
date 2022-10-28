@@ -3,8 +3,17 @@ import { Text, Button } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import { CustomButton, CustomButtonText, Container, HeaderTitle } from './styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {DatePickerIOS, View, StyleSheet} from 'react-native';
+import DatePicker from 'react-native-datepicker'
+
+import Api from "../../Api";
 
 export default () => {
+
+
+    const [chosenDate, setChosenDate] = useState(new Date());
+
+
 
     //VARIAVEIS DO PICKER TAMANHO DA REFEIÇÃO
     const [tamanhos, setTamanhos] = useState(['Pequena','Media','Grande'])
@@ -14,6 +23,15 @@ export default () => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+
+    //FUNÇÃO QUE MUDA ANGULO
+    const handleChangeAngle = async () => {
+      
+          let res = await Api.changeAngle(50);
+          
+          
+      } 
+  
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -53,7 +71,7 @@ export default () => {
             </Picker>
 
             <Text> o Tamanho selecionado foi: {tamanhoSelecionado}</Text>
-            <CustomButton onPress={console.log('apertou no alimentar')}>
+            <CustomButton onPress={null}>
                     <CustomButtonText >Alimentar</CustomButtonText>
             </CustomButton> 
 
@@ -71,6 +89,9 @@ export default () => {
                 onChange={onChange}
             />
       )}
+
+
+    )
 
 
             

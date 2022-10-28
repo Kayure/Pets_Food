@@ -27,6 +27,7 @@ export const CustomButton = styled.TouchableOpacity`
     border-radius: 40px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 
 
 `;
