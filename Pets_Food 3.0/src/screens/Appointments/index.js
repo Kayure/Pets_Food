@@ -111,7 +111,7 @@ class Appointments extends React.Component  {
         return(
             this.state.list.map((item, index) => {
                 return (
-                    <TouchableOpacity key={index} style={styles.listItem} onPress={() => {this.setWordUpdate(item)}}>
+                    <TouchableOpacity key={index} style={styles.listItem}  onPress={() => {this.setWordUpdate(item)}}>
                         <Text style={styles.textListItem} >
                             ID:                          
                             {item.id}
@@ -133,7 +133,7 @@ class Appointments extends React.Component  {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.title}>Selecione o tamanho da refeição</Text>
+                    <Text style={styles.title}>Controle Manual</Text>
                 </View>   
 
                 
@@ -161,12 +161,12 @@ class Appointments extends React.Component  {
 
                 
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={styles.touch}
                     onPress={() => this.food()}
                 >
                     <Text style={styles.touchText}>Atualizar Pagina</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
             </View>
         )
