@@ -1,80 +1,88 @@
-import React from "react";
-import styled from "styled-components/native";
+import {StyleSheet} from 'react-native'
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
 
-export const Container = styled.SafeAreaView`
+        backgroundColor: '#63C2D1',
+        alignItems: 'center',
+        
+        borderTopWidth: 5,
+        borderBottomWidth: 5,
+    },
+    header: {
+        width: '100%',
+        height: 90,
+        backgroundColor: '#268596',
+       
+        borderBottomWidth: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    title: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFF',
+    },
 
-    background-color: #63C2D1;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-   
+    subTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        
+    },
+    input: {
+        width: '90%',
+        borderColor: '#333',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 5,
+        textAlign: 'center',
+        marginBottom: 15,
+    },
+    textDate: {
+        color: '#000', 
+        fontSize: 21, 
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
+    touch: {
+        width: '90%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#268596',
+        borderRadius: 12,
+        marginBottom: 20,
+    },
+    touchText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFF',
+    },
+    list: {
+        width: '90%',
+        borderColor: '#333',
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+        paddingTop: 15,
+        marginBottom: 15, 
+    },
+    listItem: {
+        flex:1,
+        width: '100%',
+        height:'100%',
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        borderRadius: 10,
+        marginBottom: 10, 
+    },
+    textListItem: {
+        alignSelf: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+})
 
-`;
-
-export const InputArea = styled.View`
-    padding: 40px;
-    width: 100%;
-
-
-
-`;
-
-export const CustomButton = styled.TouchableOpacity`
-    height: 10%;
-    width: 100%;
-    background-color: #268596;
-    border-radius: 40px;
-    justify-content: center;
-    align-items: center;
-
-
-`;
-
-export const CustomButtonText = styled.Text`
-    font-size: 18px;
-    color: #FFF;
-`;
-
-export const SignMessageButton = styled.TouchableOpacity`
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
-
-`;
-
-export const SignMessageButtonText = styled.Text`
-    font-size: 16px;
-    color: #268596;
-
-`;
-
-export const SignMessageButtonTextBold = styled.Text`
-    font-size: 16px;
-    color: #268596;
-    font-weight: bold;
-    margin-left: 5px;
-
-`;
-
-export const Picker = styled.View`
-    font-size: 16px;
-    color: #268596;
-    font-weight: bold;
-    margin-left: 5px;
-
-`;
-
-export const HeaderTitle = styled.Text`
-    width: 250px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #FFF;
-`;
-
-
-
-
-
-// InputArea, CustomButton, CustomButtonText,SignMessageButton, SignMessageButtonText, SignMessageButtonTextBold
+export default styles

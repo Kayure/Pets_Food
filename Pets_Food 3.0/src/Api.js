@@ -17,6 +17,8 @@ const PET_API = 'https://api.ifprinteligente.com.br/petsfood';
 
 export default {
 
+   
+
     closeAngle: async () => {
 
         const req = await fetch(`${PET_API}/angulo/update/`,{
@@ -128,7 +130,7 @@ export default {
     },
 
     refeicaoPequena: async () => { 
-        await Api.get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/30').then(response => {
+        await get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/30').then(response => {
         
             alert('[OK] Alterado com Sucesso!')
 
@@ -139,7 +141,7 @@ export default {
     },
 
     refeicaoMedia: async (angulo=50) => { 
-        await api.get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/', {
+        await get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/', {
             'valor' : 100
             }).then(response => {
             alert('[OK] Angulo Alterado com Sucesso!')

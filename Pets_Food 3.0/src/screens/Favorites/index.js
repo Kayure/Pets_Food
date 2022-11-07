@@ -7,7 +7,39 @@ import axios from 'axios'
 
 import Api from "../../Api";
 
+import petApi from '../../services/api'
+
 export default () => {
+  
+
+  const [angulo, setAngulo] = useState([]);
+
+  const [valor, setValor] = useState('50');
+
+  const handleRefeicaoPequena = async () => {
+    if(valor != '' || valor == '') {
+
+        let json = await Api.refeicaoPequena();
+        
+       
+
+        } else {
+            alert("Erro: "+res.error);
+        }
+    }
+
+  const handleRefeicaoMedia = async () => {
+    if(valor != '' || valor == '') {
+
+        let res = await Api.refeicaoMedia();
+        
+       
+
+        } else {
+            alert("Erro: "+res.error);
+        }
+    }
+
 
 
   refeicaoMedia: async (angulo=50) => { 
@@ -21,15 +53,23 @@ export default () => {
 
 
 }
+
+refeicaoPequena: async () => { 
+  await Api.get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/30').then(response => {
+  
+      alert('[OK] Alterado com Sucesso!')
+
+  }).catch(error => {
+      alert('[ERROR]');
+
+  })
+}
+
+
     //VARIAVEIS DO PICKER TAMANHO DA REFEIÇÃO
     const [tamanhos, setTamanhos] = useState(['Pequena','Media','Grande'])
     const [tamanhoSelecionado, setTamanhoSelecionado] = useState([])
-
-    //TIME PICKER
-    const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    const [angulo, setAngulo] = useState([]);
+   
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate;
@@ -69,15 +109,15 @@ export default () => {
             </Picker>
 
             <Text> o Tamanho selecionado foi: {tamanhoSelecionado}</Text>
-            <CustomButton onPress={Api.refeicaoPequena}>
+            <CustomButton onPress={handleRefeicaoMedia}>
                     <CustomButtonText >Refeição Pequena</CustomButtonText>
             </CustomButton> 
 
-            <CustomButton onPress={Api.refeicaoMedia}>
+            <CustomButton onPress={handleRefeicaoMedia}>
                     <CustomButtonText >Refeição Media</CustomButtonText>
             </CustomButton> 
 
-            <CustomButton onPress={console.log('apertou no alimentar')}>
+            <CustomButton onPress={null}>
                     <CustomButtonText >Refeição Grande</CustomButtonText>
             </CustomButton> 
 
@@ -94,4 +134,4 @@ export default () => {
 
         </Container>
     )
-}
+  }
