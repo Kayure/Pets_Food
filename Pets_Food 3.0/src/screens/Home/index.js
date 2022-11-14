@@ -19,6 +19,8 @@ import Logout2 from '../../assets/logout2'
 
 export default () => {
 
+    
+
     const navigation = useNavigation();
 
     const [locationText, setLocationText] = useState('');
