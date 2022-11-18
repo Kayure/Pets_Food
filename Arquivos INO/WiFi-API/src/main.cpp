@@ -1,77 +1,90 @@
-/*********
-  Rui Santos
-  Complete project details at https://randomnerdtutorials.com  
-*********/
+#include "functions.h"
+#include <ESP32Servo.h>
 
-#include <WiFi.h>
-#include <Servo.h>
-
-Servo myservo;  // create servo object to control a servo
+Servo myservo;  // CRIAÇÃO DO OBJETO SERVO
 // twelve servo objects can be created on most boards
 
-// GPIO the servo is attached to
-static const int servoPin = 13;
+// PINO GPIO USADO NA ESP32
+static const int servoPin = 15;
 
-// Replace with your network credentials
-const char* ssid     = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
-
-// Set web server port number to 80
 WiFiServer server(80);
 
-// Variable to store the HTTP request
+// VARIAVEL QUE ARMAZENA A REQUISIÇÃO HTTP
 String header;
 
-// Decode HTTP GET value
+// INICIALIZAÇÃO DAS VARIAVEIS
 String valueString = String(5);
 int pos1 = 0;
 int pos2 = 0;
 
-// Current time
+// HORA ATUAL
 unsigned long currentTime = millis();
-// Previous time
+// HORA ANTERIOR 
 unsigned long previousTime = 0; 
-// Define timeout time in milliseconds (example: 2000ms = 2s)
+// TEMPO EM MILISEGUNDOS (EXEMPLO: 2000ms = 2s)
 const long timeoutTime = 2000;
 
+
+
 void setup() {
-  Serial.begin(115200);
 
-  myservo.attach(servoPin);  // attaches the servo on the servoPin to the servo object
+  Serial.begin(9600);
+  wifiConnect();
 
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
+   myservo.attach(servoPin);  // VINCULA SERVOPIN AO SERVO
+
+  //CONECTA NO WI-FI
+  Serial.print("Conetando na rede: ");
+  Serial.println(SSID);
+  WiFi.begin(SSID, PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  // Print local IP address and start web server
+  // MOSTRA IP QUE DEVE SE CONECTAR PARA ABRIR O SERVO WEB
   Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
+  Serial.println("Conectado. Sucesso para usar no PlatformIO");
+  Serial.println("Endereço IP : ");
   Serial.println(WiFi.localIP());
   server.begin();
 }
 
-void loop(){
-  WiFiClient client = server.available();   // Listen for incoming clients
 
-  if (client) {                             // If a new client connects,
+
+void loop() {
+  
+  if(WiFi.status() == WL_CONNECTED) {
+      getRequestAPIPets();
+      
+  }
+  delay(10000);
+
+  if(angulo >= 0) {
+
+    myservo.write(angulo); 
+    Serial.print("Valor do angulo = ");
+    Serial.println(angulo); 
+  }
+  
+
+  
+
+  WiFiClient client = server.available();   
+
+  if (client) {                             
     currentTime = millis();
     previousTime = currentTime;
-    Serial.println("New Client.");          // print a message out in the serial port
-    String currentLine = "";                // make a String to hold incoming data from the client
-    while (client.connected() && currentTime - previousTime <= timeoutTime) { // loop while the client's connected
+    Serial.println("Novo Client.");          
+    String currentLine = "";                
+
+    //ENQUANTO O CLIENTE ESTÁ CONECTADO VAI DEIXAR A PAGINA WEB NO AR, ps: copiei da internet
+    while (client.connected() && currentTime - previousTime <= timeoutTime) { 
       currentTime = millis();
-      if (client.available()) {             // if there's bytes to read from the client,
-        char c = client.read();             // read a byte, then
-        Serial.write(c);                    // print it out the serial monitor
+      if (client.available()) {            
+        char c = client.read();             
+        Serial.write(c);                    
         header += c;
-        if (c == '\n') {                    // if the byte is a newline character
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
+        if (c == '\n') {                   
           if (currentLine.length() == 0) {
             // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
             // and a content-type so the client knows what's coming, then a blank line:
@@ -80,40 +93,51 @@ void loop(){
             client.println("Connection: close");
             client.println();
 
-            // Display the HTML web page
+            //CRIA A PAGINA HTML
             client.println("<!DOCTYPE html><html>");
             client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
             client.println("<link rel=\"icon\" href=\"data:,\">");
-            // CSS to style the on/off buttons 
-            // Feel free to change the background-color and font-size attributes to fit your preferences
+
+            //ESTILOS CSS            
             client.println("<style>body { text-align: center; font-family: \"Trebuchet MS\", Arial; margin-left:auto; margin-right:auto;}");
             client.println(".slider { width: 300px; }</style>");
             client.println("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>");
                      
-            // Web Page
-            client.println("</head><body><h1>ESP32 with Servo</h1>");
-            client.println("<p>Position: <span id=\"servoPos\"></span></p>");          
+            // BODY DA PAGINA HTML
+            client.println("</head><body><h1>Slider</h1>");
+            client.println("<p>Posicao: <span id=\"servoPos\"></span></p>");          
             client.println("<input type=\"range\" min=\"0\" max=\"180\" class=\"slider\" id=\"servoSlider\" onchange=\"servo(this.value)\" value=\""+valueString+"\"/>");
             
             client.println("<script>var slider = document.getElementById(\"servoSlider\");");
             client.println("var servoP = document.getElementById(\"servoPos\"); servoP.innerHTML = slider.value;");
             client.println("slider.oninput = function() { slider.value = this.value; servoP.innerHTML = this.value; }");
             client.println("$.ajaxSetup({timeout:1000}); function servo(pos) { ");
-            client.println("$.get(\"/?value=\" + pos + \"&\"); {Connection: close};}</script>");
+            
+            //ENVIA PARA A API O VALOR DO SLIDER  <----
+            client.println("$.get(\"https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/\" + pos\); {Connection: close};}</script>");
            
             client.println("</body></html>");     
             
-            //GET /?value=180& HTTP/1.1
+            //PEGA O VALOR DA URL E MANDA PARA O SERVO
             if(header.indexOf("GET /?value=")>=0) {
               pos1 = header.indexOf('=');
-              pos2 = header.indexOf('&');
+               pos2 = header.indexOf('&');
+
               valueString = header.substring(pos1+1, pos2);
+              //GIRA O SERVO
+               myservo.write(valueString.toInt());
+                Serial.println(valueString); 
               
-              //Rotate the servo
-              myservo.write(valueString.toInt());
-              Serial.println(valueString); 
-            }         
-            // The HTTP response ends with another blank line
+
+            //    Serial.print("value String = ");
+            //    Serial.println(valueString);
+
+            //    Serial.print("Angulo Alterado = ");
+            //    Serial.println(angulo);
+             }
+
+                         
+            
             client.println();
             // Break out of the while loop
             break;
@@ -127,9 +151,18 @@ void loop(){
     }
     // Clear the header variable
     header = "";
-    // Close the connection
-    client.stop();
+    // FECHA A 
+    //client.stop();
     Serial.println("Client disconnected.");
     Serial.println("");
+
+    
   }
+
+
+
+
+
+
+
 }
