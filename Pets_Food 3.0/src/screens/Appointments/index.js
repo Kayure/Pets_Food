@@ -70,7 +70,7 @@ class Appointments extends React.Component  {
             this.setState({
                 valor: 50,
                
-            },alert('[OK] Angulo alterado para: 50'))
+            },)
         }).catch(error => {
             console.log(error)
         })
@@ -84,7 +84,7 @@ class Appointments extends React.Component  {
         await petApi.get('/update/100').then(response => {
             this.setState({
                 valor: 100
-            },alert('[OK] Angulo alterado para: 100'))
+            },)
         }).catch(error => {
             console.log(error)
         })
