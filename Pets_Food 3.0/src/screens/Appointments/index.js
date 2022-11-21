@@ -92,7 +92,44 @@ class Appointments extends React.Component  {
         this.read()
     }
 
-    
+    async refeicaoPequena() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/1').then(response => {
+            this.setState({
+                valor: 1
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
+    async refeicaoMedia() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/2').then(response => {
+            this.setState({
+                valor: 2
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
+    async refeicaoGrande() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/3').then(response => {
+            this.setState({
+                valor: 3
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
 
     
 
@@ -128,6 +165,7 @@ class Appointments extends React.Component  {
         )
     }
 
+    //VISUALIZAÇÃO DA APLICAÇÃO
     render() {
 
         return (
@@ -140,16 +178,23 @@ class Appointments extends React.Component  {
 
                 <TouchableOpacity
                     style={styles.touch}
-                    onPress={() => {this.abrir()}}
+                    onPress={() => {this.refeicaoPequena()}}
                 >
-                    <Text style={styles.touchText}>Abrir [50°] </Text>
+                    <Text style={styles.touchText}>refeicaoPequena [4 Segundos] </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.touch}
-                    onPress={() => {this.fechar()}}
+                    onPress={() => {this.refeicaoMedia()}}
                 >
-                    <Text style={styles.touchText}>Fechar [100°]</Text>
+                    <Text style={styles.touchText}>Refeição Media [6 Segundos]</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.touch}
+                    onPress={() => {this.refeicaoGrande()}}
+                >
+                    <Text style={styles.touchText}>Refeição Grande [10 Segundos]</Text>
                 </TouchableOpacity>
 
                 

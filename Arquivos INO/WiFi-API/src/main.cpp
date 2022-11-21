@@ -87,7 +87,7 @@ void loop() {
   }
 
   //REFEIÇÃO GRANDE 
-  if(angulo = 1) {
+  if(angulo = 3) {
 
     myservo.write(90); 
     delay(10000);
