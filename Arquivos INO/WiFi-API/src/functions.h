@@ -52,6 +52,8 @@ void getRequestAPIPets() {
         angulo = valor.toInt();
         Serial.print("Angulo = ");
         Serial.println(angulo);
+        
+
     }
     else {
         Serial.print("Error code: ");

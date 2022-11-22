@@ -131,6 +131,19 @@ class Appointments extends React.Component  {
         this.read()
     }
 
+    async fechar() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/0').then(response => {
+            this.setState({
+                valor: 3
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
     
 
     setWordUpdate(item) {
@@ -180,7 +193,7 @@ class Appointments extends React.Component  {
                     style={styles.touch}
                     onPress={() => {this.refeicaoPequena()}}
                 >
-                    <Text style={styles.touchText}>refeicaoPequena [4 Segundos] </Text>
+                    <Text style={styles.touchText}>Refeição Pequena [4 Segundos] </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -198,11 +211,20 @@ class Appointments extends React.Component  {
                 </TouchableOpacity>
 
                 
+
+                
                     <Text style={styles.subTitle}>Valores da Api</Text>
                  
                 <ScrollView style={styles.list}>
                     { this.listAndIndicator() }
                 </ScrollView>
+
+                <TouchableOpacity
+                    style={styles.touch}
+                    onPress={() => {this.fechar()}}
+                >
+                    <Text style={styles.touchText}>FECHAR </Text>
+                </TouchableOpacity>
 
                 
 
