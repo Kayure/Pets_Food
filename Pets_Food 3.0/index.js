@@ -1,4 +1,5 @@
 import { registerRootComponent } from 'expo';
+import Animated from 'react-native-reanimated';
 
 
 import App from './App';

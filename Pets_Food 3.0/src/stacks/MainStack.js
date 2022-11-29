@@ -10,6 +10,9 @@ import MainTab from '../stacks/MainTab';
 const Stack = createStackNavigator();
 
 export default() => (
+
+    
+
     <Stack.Navigator
         initialRouteName="Preload"
         screenOptions={{

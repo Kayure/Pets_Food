@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 90,
         backgroundColor: '#268596',
+        marginBottom: 10,
        
         borderBottomWidth: 5,
         justifyContent: 'center',
@@ -24,11 +25,18 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         color: '#FFF',
+        
     },
 
     subTitle: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
+        marginLeft: 10,
+        marginRight: 5,
+        marginBottom: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontStyle: 'italic'
         
     },
     input: {
@@ -54,6 +62,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#268596',
         borderRadius: 12,
         marginBottom: 20,
+        marginTop:10
+        
     },
     touchText: {
         fontSize: 16,
@@ -82,7 +92,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
-    },
+    }
+
 })
+
+
 
 export default styles

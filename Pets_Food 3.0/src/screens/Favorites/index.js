@@ -1,137 +1,206 @@
 import React, {useState} from "react";
-import { Text, Button } from "react-native";
-import {Picker} from '@react-native-picker/picker';
+import { View, Text, TextInput, TouchableOpacity, 
+    ScrollView, Keyboard, ActivityIndicator } from "react-native";
+
 import { CustomButton, CustomButtonText, Container, HeaderTitle } from './styles';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import axios from 'axios'
 
-import Api from "../../Api";
 
+import styles from './styles'
 import petApi from '../../services/api'
 
-export default () => {
-  
+class Favorites extends React.Component  {
 
-  const [angulo, setAngulo] = useState([]);
-
-  const [valor, setValor] = useState('50');
-
-  const handleRefeicaoPequena = async () => {
-    if(valor != '' || valor == '') {
-
-        let json = await Api.refeicaoPequena();
-        
-       
-
-        } else {
-            alert("Erro: "+res.error);
-        }
-    }
-
-  const handleRefeicaoMedia = async () => {
-    if(valor != '' || valor == '') {
-
-        let res = await Api.refeicaoMedia();
-        
-       
-
-        } else {
-            alert("Erro: "+res.error);
-        }
-    }
-
-
-
-  refeicaoMedia: async (angulo=50) => { 
-    await get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/', {
-        'valor' : 100
-        }).then(response => {
-        alert('[OK] Angulo Alterado com Sucesso!')
-        }).catch(error => {
-        alert('[ERROR]');
-        })
-
-
-}
-
-refeicaoPequena: async () => { 
-  await Api.get('https://api.ifprinteligente.com.br/petsfood/rest.php/angulo/update/30').then(response => {
-  
-      alert('[OK] Alterado com Sucesso!')
-
-  }).catch(error => {
-      alert('[ERROR]');
-
-  })
-}
-
-
-    //VARIAVEIS DO PICKER TAMANHO DA REFEIÇÃO
-    const [tamanhos, setTamanhos] = useState(['Pequena','Media','Grande'])
-    const [tamanhoSelecionado, setTamanhoSelecionado] = useState([])
    
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
-        setShow(false);
-        setDate(currentDate);
-      };
-
-      const showMode = (currentMode) => {
-        if (Platform.OS === 'android') {
-          setShow(false);
-          // for iOS, add a button that closes the picker
+    constructor(props) {
+        super(props)
+        this.state = {            
+            valor: '',
+            id: '',
+            datahora:'',
+            refreshing :false,           
+            list: [],
         }
-        setMode(currentMode);
-      };
+    }
 
-      const showDatepicker = () => {
-        showMode('date');
-      };
+    
 
-      const showTimepicker = () => {
-        showMode('time');
-      };
+    async componentDidMount() {
+        this.read()
+    }
 
-    return (
-        <Container>
+    async create() {
+
+        if(this.state.word != '') {
+            await petApi.get('/update', {
+                'valor' : 100
+            }).then(response => {
+                alert('[OK] Alterado com Sucesso!')
+            }).catch(error => {
+                alert('[ERROR]');
+            })
+            this.read()
+        }
+        else {
+            alert("[ERROR] Palavra em branco!")
+        }
+        this.setState({
             
-            <HeaderTitle> Selecione o tamanho da refeição: </HeaderTitle>
-            <Picker
-                selectedValue={tamanhoSelecionado}
-                onValueChange={(itemValue, itemIndex) =>
-                    setTamanhoSelecionado(itemValue)
-                }>
-                    {tamanhos.map(cr => {
-                        return <Picker.Item label={cr} value={cr} />
-
-                     })}
-            </Picker>
-
-            <Text> o Tamanho selecionado foi: {tamanhoSelecionado}</Text>
-            <CustomButton onPress={handleRefeicaoMedia}>
-                    <CustomButtonText >Refeição Pequena</CustomButtonText>
-            </CustomButton> 
-
-            <CustomButton onPress={handleRefeicaoMedia}>
-                    <CustomButtonText >Refeição Media</CustomButtonText>
-            </CustomButton> 
-
-            <CustomButton onPress={null}>
-                    <CustomButtonText >Refeição Grande</CustomButtonText>
-            </CustomButton> 
-
+            valor: 100,
             
+        })
+        Keyboard.dismiss()
+    }
 
-            
-            
+    async read() {
+        this.setState({load: true})
+        await petApi.get('').then(response => {
+            this.setState({
+                list: response.data
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false})
+    }
 
-            
+    async abrir() {
+        this.setState({load: true})
+        await petApi.get('/update/50').then(response => {
+            this.setState({
+                valor: 50,
+               
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false})
+        this.read()
+    }
 
 
-            
+    async fechar() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/100').then(response => {
+            this.setState({
+                valor: 100
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
 
+    async refeicaoPequena() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/1').then(response => {
+            this.setState({
+                valor: 1
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
 
-        </Container>
-    )
-  }
+    async refeicaoMedia() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/2').then(response => {
+            this.setState({
+                valor: 2
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
+    async refeicaoGrande() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/3').then(response => {
+            this.setState({
+                valor: 3
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
+    async fechar() {
+        this.setState({load: true, refreshing: true})
+        await petApi.get('/update/0').then(response => {
+            this.setState({
+                valor: 3
+            },)
+        }).catch(error => {
+            console.log(error)
+        })
+        this.setState({load: false, refreshing: false})
+        this.read()
+    }
+
+    
+
+    setWordUpdate(item) {
+        this.setState({
+            wordup: item.valor,
+            wordid: item.id,
+            edit: true,
+        })
+    }
+
+    listAndIndicator() {
+        if(this.state.load) {  
+            return <ActivityIndicator size="large" color="#CC0"/>
+        }
+        return(
+            this.state.list.map((item, index) => {
+                return (
+                    <TouchableOpacity key={index} style={styles.listItem}  onPress={() => {this.setWordUpdate(item)}}>
+                        {/* <Text style={styles.textListItem} >
+                            ID:                          
+                            {item.id}
+                        </Text>
+                        <Text style={styles.textListItem}>
+                            Angulo: {item.valor}                            
+                        </Text> */}
+                        <Text style={styles.textListItem}>
+                            Data: {item.datahora}                            
+                        </Text>
+                    </TouchableOpacity> 
+                )
+            })
+        )
+    }
+
+    //VISUALIZAÇÃO DA APLICAÇÃO
+    render() {
+
+        return (
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>Ultima refeição</Text>
+                </View>                   
+
+                
+
+              
+
+                 
+                <ScrollView style={styles.list}>
+                    { this.listAndIndicator() }
+                </ScrollView>
+
+               
+
+            </View>
+        )
+    }
+}
+
+export default Favorites

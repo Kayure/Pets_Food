@@ -53,6 +53,13 @@ export default () => {
     //FUNÇÃO QUE ENVIE O CLIENTE PARA TELA DE CADASTRO
     const handleMessageButtonClick = () => {
         navigation.reset({
+            routes:[{name:'SignUp'}]
+        });
+    }
+
+    //FUNÇÃO QUE ENVIE O CLIENTE PARA TELA DE CADASTRO
+    const handleSignIn = () => {
+        navigation.reset({
             routes:[{name:'SignIn'}]
         });
     }
@@ -92,12 +99,12 @@ export default () => {
                 
                
 
-                <CustomButton onPress={handleSignClick}>
+                <CustomButton onPress={handleMessageButtonClick}>
                     <CustomButtonText>REGISTRAR</CustomButtonText>
                 </CustomButton>
             </InputArea>
 
-            <SignMessageButton onPress={handleMessageButtonClick}>
+            <SignMessageButton onPress={handleSignIn}>
                 <SignMessageButtonText> Ja possui conta ?</SignMessageButtonText>
                 <SignMessageButtonTextBold>  Faça Login </SignMessageButtonTextBold>
             </SignMessageButton>

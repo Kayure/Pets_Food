@@ -55,11 +55,16 @@ export default () => {
     }
 
     //FUNÇÃO QUE ENVIE O CLIENTE PARA TELA DE CADASTRO
-    const handleMessageButtonClick = () => {
-        navigation.navigate({
-            routes:[{name:'SignUp'}]
-        });
-    }
+    const handleSignUp = async ()  => {
+
+
+        navigation.reset({
+             routes:[{name: 'SignUp'}]
+        })
+
+                
+
+    }    
 
 
     return(
@@ -89,7 +94,7 @@ export default () => {
                 </CustomButton>
             </InputArea>
 
-            <SignMessageButton onPress={handleMessageButtonClick}>
+            <SignMessageButton onPress={handleSignUp}>
                 <SignMessageButtonText> Ainda não possui conta ?</SignMessageButtonText>
                 <SignMessageButtonTextBold>  Cadastre-se </SignMessageButtonTextBold>
             </SignMessageButton>

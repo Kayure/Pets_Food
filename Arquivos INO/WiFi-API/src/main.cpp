@@ -1,4 +1,5 @@
 #include "functions.h"
+#include "relogio.h"
 #include <ESP32Servo.h>
 
 Servo myservo;  // CRIAÇÃO DO OBJETO SERVO
@@ -13,20 +14,24 @@ static const int servoPin = 15;
 
 WiFiServer server(80);
 
-// VARIAVEL QUE ARMAZENA A REQUISIÇÃO HTTP
+// Set web server port number to 80
+WiFiServer server(80);
+
+// Variable to store the HTTP request
 String header;
 
-// INICIALIZAÇÃO DAS VARIAVEIS
+// Decode HTTP GET value
 String valueString = String(5);
 int pos1 = 0;
 int pos2 = 0;
 
-// HORA ATUAL
+// Current time
 unsigned long currentTime = millis();
-// HORA ANTERIOR 
+// Previous time
 unsigned long previousTime = 0; 
-// TEMPO EM MILISEGUNDOS (EXEMPLO: 2000ms = 2s)
+// Define timeout time in milliseconds (example: 2000ms = 2s)
 const long timeoutTime = 2000;
+
 
 
 void setup() {
@@ -41,12 +46,21 @@ void setup() {
 }
 
 void loop() {
+
   
   if(WiFi.status() == WL_CONNECTED) {
+
+     
 
       getRequestAPIPets();     
   
   }
+  
+
+
+
+
+
 
   delay(10000);
 

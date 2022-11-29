@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, 
     ScrollView, Keyboard, ActivityIndicator } from "react-native";
-import {Picker} from '@react-native-picker/picker';
+
 import { CustomButton, CustomButtonText, Container, HeaderTitle } from './styles';
 
 
@@ -162,15 +162,15 @@ class Appointments extends React.Component  {
             this.state.list.map((item, index) => {
                 return (
                     <TouchableOpacity key={index} style={styles.listItem}  onPress={() => {this.setWordUpdate(item)}}>
-                        <Text style={styles.textListItem} >
+                        {/* <Text style={styles.textListItem} >
                             ID:                          
                             {item.id}
                         </Text>
                         <Text style={styles.textListItem}>
                             Angulo: {item.valor}                            
-                        </Text>
+                        </Text> */}
                         <Text style={styles.textListItem}>
-                            Alterado em: {item.datahora}                            
+                            Data: {item.datahora}                            
                         </Text>
                     </TouchableOpacity> 
                 )
@@ -184,7 +184,7 @@ class Appointments extends React.Component  {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.title}>Controle Manual</Text>
+                    <Text style={styles.title}>Acionar Alimentador</Text>
                 </View>   
 
                 
@@ -193,47 +193,36 @@ class Appointments extends React.Component  {
                     style={styles.touch}
                     onPress={() => {this.refeicaoPequena()}}
                 >
-                    <Text style={styles.touchText}>Refeição Pequena [4 Segundos] </Text>
+                    <Text style={styles.touchText}>Refeição Pequena </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.touch}
                     onPress={() => {this.refeicaoMedia()}}
                 >
-                    <Text style={styles.touchText}>Refeição Media [6 Segundos]</Text>
+                    <Text style={styles.touchText}>Refeição Media </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.touch}
                     onPress={() => {this.refeicaoGrande()}}
                 >
-                    <Text style={styles.touchText}>Refeição Grande [10 Segundos]</Text>
+                    <Text style={styles.touchText}>Refeição Grande </Text>
                 </TouchableOpacity>
 
                 
 
+                <Text style={styles.subTitle}></Text>
+                <Text style={styles.subTitle}>Refeição Pequena: O alimentador ficará aberto por 4 segundos</Text>
+                <Text style={styles.subTitle}></Text>
+
+                <Text style={styles.subTitle}>Refeição Pequena: O alimentador ficará aberto por 6 segundos</Text>
                 
-                    <Text style={styles.subTitle}>Valores da Api</Text>
+                <Text style={styles.subTitle}></Text>
+
+                <Text style={styles.subTitle}>Refeição Grande: O alimentador ficará aberto por 8 segundos</Text>
+
                  
-                <ScrollView style={styles.list}>
-                    { this.listAndIndicator() }
-                </ScrollView>
-
-                <TouchableOpacity
-                    style={styles.touch}
-                    onPress={() => {this.fechar()}}
-                >
-                    <Text style={styles.touchText}>FECHAR </Text>
-                </TouchableOpacity>
-
-                
-
-                {/* <TouchableOpacity
-                    style={styles.touch}
-                    onPress={() => this.food()}
-                >
-                    <Text style={styles.touchText}>Atualizar Pagina</Text>
-                </TouchableOpacity> */}
 
             </View>
         )

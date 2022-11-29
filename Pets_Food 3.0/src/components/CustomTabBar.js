@@ -9,6 +9,7 @@ import TodayIcon from '../assets/today.svg';
 import FavoriteIcon from '../assets/favorite.svg';
 import AccountIcon from '../assets/account.svg';
 import HistoryIcon from '../assets/history.svg';
+import FoodIcon from '../assets/food.svg';
 
 
 const TabArea = styled.View`
@@ -58,7 +59,7 @@ export default ({ state, navigation }) => {
             </TabItem> */}
 
             <TabItemCenter onPress={()=>goTo('Appointments')}>
-                <TodayIcon width="32" height="32" fill="#4EADBE" />
+                <FoodIcon width="32" height="32" fill="#4EADBE" />
             </TabItemCenter>
 
 

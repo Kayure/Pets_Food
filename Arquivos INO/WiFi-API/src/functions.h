@@ -52,6 +52,11 @@ void getRequestAPIPets() {
         angulo = valor.toInt();
         Serial.print("Angulo = ");
         Serial.println(angulo);
+
+        String hora = getData(http.getString(), "datahora");
+        hora = datahora.toInt();
+        Serial.print("Angulo = ");
+        Serial.println(hora);
         
 
     }
